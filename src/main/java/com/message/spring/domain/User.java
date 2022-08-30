@@ -3,11 +3,11 @@ package com.message.spring.domain;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "usr")
+@Entity // класс как сущность или другими словами Entity говорит о том, что поля класса имеют отображение в БД
+@Table(name = "usr") // set a custom table name
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id // column id
+    @GeneratedValue(strategy = GenerationType.AUTO) //GenerationType.AUTO параметр AUTO значит, что генерацией id будет заниматься БД.hibernate сам выберет из одну вышеописанных стратегий
     private Long id;
     private String username;
     private String password;
@@ -53,7 +53,7 @@ public class User {
         this.roles = roles;
     }
 
-    @ElementCollection(targetClass = Role.class,fetch =FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class,fetch =FetchType.EAGER) // @ElementCollection предназначен для отображения не-сущностей (встраиваемых или базовых)
     @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
